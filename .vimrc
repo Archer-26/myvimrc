@@ -1,0 +1,200 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+Plugin 'tComment'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'godlygeek/tabular'
+Plugin 'vim-scripts/vcscommand.vim'
+Plugin 'vim-scripts/DynamicSigns'
+Plugin 'vim-scripts/Marks-Browser'
+"Plugin 'vim-scripts/Vim-JDE'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'fatih/vim-go'
+Plugin 'kien/ctrlp.vim'
+
+
+" Plugin 'brookhong/cscope.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" let g:tabular_loaded = 1
+let g:Signs_Bookmarks=1 " 显示mark  
+set ts=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+set nu
+set fileencodings=utf-8
+set termencoding=utf-8
+set encoding=utf-8
+
+"设置不产生.swp文件
+set noswapfile
+"设置上下滚屏宽度
+set scrolloff=10
+" 高亮显示当前行/当前列
+set cursorline
+"开启实时搜索功能
+set incsearch
+nmap <F5> :NERDTree<CR>
+" cscope 找到的文本放入quickfix中
+set cscopequickfix=s-,c-,d-,i-,t-,e-	
+
+
+" 更新svn
+nnoremap <F2> :!svn ci -m ""<CR>
+nnoremap <F1> :!svn up<CR>
+
+"设置<leader> 为 空格 默认是 \
+let mapleader="`"
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+
+"移动分屏窗口
+nnoremap <F11> <C-w>5<
+nnoremap <F12> <C-w>5>
+nnoremap <F9> <C-w>5-
+nnoremap <F10> <C-w>5+
+
+
+
+" set cursorcolumn
+
+
+"查找
+vnoremap <F3> yq:ivimgrep // **/*.*<ESC>8hp<CR>:copen<CR>
+vnoremap <Leader><F3> yq:ivimgrep /\<\>/ **/*.*<ESC>10hp<CR>:copen<CR>
+
+" cscope 查找
+nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+nnoremap <leader>l :call ToggleLocationList()<CR>
+
+"关闭窗口
+nnoremap <F4> ZZ
+
+" 快捷保存
+nnoremap <F6> :w<CR>
+
+" 自定义
+imap <C-j>  <C-n>
+imap <C-k>  <C-p>
+nmap f *N
+imap ( ()<ESC>i
+imap [ []<ESC>i
+imap <C-u> iiui
+imap ii <Esc>:w<CR>
+imap <leader>g <Esc>:GoFmt<CR>:GoImports<CR>:GoTest<CR>
+nmap <leader>g <Esc>:GoFmt<CR>:GoImports<CR>:GoTest<CR>
+nmap <leader>f :GoReferrers<CR>
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:rehash256 = 1
+let g:molokai_original = 1
+let g:go_auto_type_info = 1
+let g:go_version_warning = 0
+set updatetime=100
+nmap L gt
+nmap H gT
+
+
+" lua for循环 pairs版本
+imap <Leader>forr for<Space>k,v<Space>in<Space>pairs(iila<Space>do<CR>end<up>ii14la
+" lua for循环 ipairs版本
+imap <Leader>fori for<Space>k,v<Space>in<Space>ipairs(iila<Space>do<CR>end<up>ii15la
+" lua if
+imap <Leader>fi if<Space>then<CR>end<Esc>ka <Esc>i
+
+" C++ if
+imap <Leader>cif if (<Esc>o{<Esc>o}<Esc>kkllla
+" C++ for
+imap <Leader>cfor for (<Esc>o{<Esc>o}<Esc>kklllla
+" C++ ();
+imap <Leader>( (<Esc>A;<Esc>hi
+"C++ {}
+imap <Leader>{ {<CR>}<Esc>O<tab>
+"C++ ;
+imap <Leader>; <Esc>A;
+nmap <Leader>; <Esc>A;<Esc>;
+
+
+set nocst
+set tags=tags;
+set autochdir
+
+" cscope 
+nnoremap <Leader>fc :cscope find c <cword><CR><C-o>:copen<CR>
+nnoremap <Leader>fd :cscope find d <cword><CR><C-o>:copen<CR>
+nnoremap <Leader>fg :cscope find g <cword><CR><C-o>:copen<CR>
+nnoremap <Leader>fi :cscope find i <cword><CR><C-o>:copen<CR>
+nnoremap <Leader>fs :cscope find s <cword><CR><C-o>:copen<CR>
+nnoremap <Leader>ft :cscope find t <cword><CR><C-o>:copen<CR>
+" let g:airline_section_a
+" let g:airline_theme="luna" 
+" let g:airline_powerline_fonts = 1
+  if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = '▶'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = '◀'
+  let g:airline_symbols.crypt = '🔒'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.maxlinenr = '☰'
+  let g:airline_symbols.maxlinenr = ''
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.paste = 'Þ'
+  let g:airline_symbols.paste = '∥'
+  let g:airline_symbols.spell = 'Ꞩ'
+  let g:airline_symbols.notexists = '∄'
+  let g:airline_symbols.whitespace = 'Ξ'
+
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#buffer_nr_show = 1
+
+"  let g:airline_theme="molokai"
+colorscheme Monokai
+" autoload _vimrc 修改配置自动更新
+autocmd! bufwritepost .vimrc source ~/.vimrc
